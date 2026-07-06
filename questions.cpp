@@ -1,33 +1,24 @@
-// 20. question in pattern;
+// fibonacci series
 
 #include <iostream>
 using namespace std;
 
 int main(){
-    int n = 5;
-    for(int i = 1; i<= n; i++){
-        for(int j = 0; j < i;j++){
-            cout << "*";
+    int first = 0, second = 1;
+    int term ;
+    cout << "which term upto u want to run series :";
+    cin >> term ;
+    for(int i = 0; i < term ; i++){
+        if(i == 0){
+            cout << first ;
+        }else if (i == 1){
+            cout << ", " << second ;
+        }else {
+            int last = first + second ;
+            cout << ", " << last ;
+            first = second ;
+            second  = last ;
         }
-        for(int j = 0; j<2*(n-i); j++){
-            cout << " ";
-        }
-        for(int j=0; j<i; j++){
-            cout << "*";
-        }
-        cout << endl;
     }
-    int m = 5;
-    for(int i= 0; i< m; i++){
-        for(int j =0; j<m-i; j++){
-            cout << "*";
-        }
-        for(int j = 0; j<2*i ; j++){
-            cout << " ";
-        }
-        for(int j =0; j<m-i; j++){
-            cout << "*";
-        }
-        cout << endl;
-    }
+    return 0;
 }
