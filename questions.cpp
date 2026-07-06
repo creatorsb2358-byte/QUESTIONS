@@ -1,24 +1,20 @@
-// fibonacci series
+// decimal to binary:
 
 #include <iostream>
 using namespace std;
 
 int main(){
-    int first = 0, second = 1;
-    int term ;
-    cout << "which term upto u want to run series :";
-    cin >> term ;
-    for(int i = 0; i < term ; i++){
-        if(i == 0){
-            cout << first ;
-        }else if (i == 1){
-            cout << ", " << second ;
-        }else {
-            int last = first + second ;
-            cout << ", " << last ;
-            first = second ;
-            second  = last ;
-        }
+    int decimal ;
+    cout << "choose decimal for conversion:";
+    cin >> decimal;
+    int power = 1;
+    int binary = 0;
+    while (decimal > 0){
+        int remainder = decimal % 2;
+        decimal /= 2;
+        binary += remainder*power ;
+        power *= 10;
+
     }
-    return 0;
+    cout << binary ; 
 }
