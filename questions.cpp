@@ -1,27 +1,20 @@
-/// to swap the amx and min number in array:
+///to print the unique element in an array:
 
 #include <iostream>
 using namespace std;
 
 int main(){
-    int arr[5] = {1,2,3,4,5};
-    int index = 0;
-    int indx = 0;
-    int small = INT32_MAX;
-    int large = INT32_MIN;
-    for(int i = 0; i < 5; i++){
-        if(arr[i] < small ){
-            index = i;
+    int arr[8] ={1,2,3,1,2,3,4,5};
+    for(int i = 0; i < 8; i++){
+        int count = 0;
+        for(int j = 0; j< 8; j++){
+            if(arr[i] == arr[j]){
+                count++;
+            }
+        }
+        if(count == 1){
+            cout << arr[i] << " ";
         }
     }
-    for(int j = 0; j < 5; j++){
-        if(arr[j] < large){
-            indx = j;
-        }
-    }
-    swap(arr[index], arr[indx]);
-    for(int i = 0; i<5; i++){
-        cout << arr[i] << "  " ;
-    }
-
 }
+
