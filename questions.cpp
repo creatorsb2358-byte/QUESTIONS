@@ -1,21 +1,27 @@
-///make a function to sum and product all the numbers in array .
+/// to swap the amx and min number in array:
 
 #include <iostream>
 using namespace std;
 
-void sum_product(const int arr[], int size){
-    int sum = 0;
-    int product = 1;
-    for(int i = 0; i < size ; i++){
-        sum += arr[i];
-        product *= arr[i];
-    }
-    cout << sum << endl;
-    cout << product;
-}
-
 int main(){
-    int array[] = {1,2,3,4,5};
-    int size = 5;
-    sum_product(array , size);
+    int arr[5] = {1,2,3,4,5};
+    int index = 0;
+    int indx = 0;
+    int small = INT32_MAX;
+    int large = INT32_MIN;
+    for(int i = 0; i < 5; i++){
+        if(arr[i] < small ){
+            index = i;
+        }
+    }
+    for(int j = 0; j < 5; j++){
+        if(arr[j] < large){
+            indx = j;
+        }
+    }
+    swap(arr[index], arr[indx]);
+    for(int i = 0; i<5; i++){
+        cout << arr[i] << "  " ;
+    }
+
 }
