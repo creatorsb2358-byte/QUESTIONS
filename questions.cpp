@@ -1,25 +1,18 @@
-///reversing a vector: 
+///leetcode 136 - single number:
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int swapping_arr(vector<int>& nums, int size){
-    int start = 0; 
-    int end = size - 1;
-    while(start <= end ){
-        swap(nums[start],nums[end]);
-        start++;
-        end--;
+int singleNumber(vector<int>& nums) {
+    int ans = 0;
+    for (int val : nums){
+        ans ^= val;
     }
+    cout << ans;
 }
 
 int main(){
-    vector<int> num = {1,2,3,4,5};
-    
-    swapping_arr(num , 5);
-    for(int i : num ){
-        cout << i;
-    }
-    
+    vector<int> numm = {1,2,3,1,2,3,4};
+    singleNumber(numm);
 }
