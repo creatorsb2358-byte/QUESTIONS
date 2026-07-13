@@ -1,18 +1,19 @@
-///leetcode 136 - single number:
+///linear search in vector:
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int singleNumber(vector<int>& nums) {
-    int ans = 0;
-    for (int val : nums){
-        ans ^= val;
+int linear_search(vector<int>& nums, int target){
+    for(int i : nums){
+        if(target == nums[i]){
+            cout << i;
+        }
     }
-    cout << ans;
 }
 
 int main(){
-    vector<int> numm = {1,2,3,1,2,3,4};
-    singleNumber(numm);
+    vector<int> numm = {1,2,3,4,5};
+    int target = 4;
+    linear_search(numm , target);
 }
