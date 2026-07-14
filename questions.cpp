@@ -1,4 +1,4 @@
-///to print the max subarray(using bruteforce):
+///kadane's algorithm:
 
 #include <iostream>
 using namespace std;
@@ -6,14 +6,14 @@ using namespace std;
 int main(){
     int arr[7] = {3,-4,5,4,-1,7,-8};
     int maxx = INT16_MIN;
-    for(int st = 0; st < 7; st++){
-        int sum = 0;
-        for(int end = st; end < 7; end++){
-            sum += arr[end];
-            maxx = max(sum,maxx);
+    int cs = 0;
+    for(int i = 0; i < 7; i++){
+        cs += arr[i];
+        maxx = max(cs,maxx);
+        if(cs < 0){
+            cs = 0;
         }
-    }
-    cout << "so the max subarray is :" << maxx ;
-
 }
+cout << maxx;
+}        
 
