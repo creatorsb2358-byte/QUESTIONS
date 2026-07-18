@@ -1,22 +1,24 @@
-///pivot index (middle index):
+///pow(x,n):
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
 int main(){
-    vector<int> nums = {1,3,2,4};
-    int size = nums.size();
-    int ts = 0;
-    for(int i = 0;i< size ;i++){
-        ts += nums[i];
-    }
-    int rs = 0, ls = 0;
-    for(int i = 0 ;i< size ;i++){
-        rs = ts - ls - nums[i];
-        if(ls == rs ){
-            cout << i;
+    double x = 3 , n = 5;
+    ///ans start from here :
+    int binary_form = n ;
+    if(n < 0){
+        x = 1/x;
+        binary_form = -binary_form;
+    } 
+    double ans = 1 ;
+    while(binary_form > 0){
+        if(binary_form % 2 == 1){
+            ans *= x ;
         }
-        ls += nums[i];
+        x *= x;
+        binary_form /= 2;
     }
+    cout << ans;
 }
