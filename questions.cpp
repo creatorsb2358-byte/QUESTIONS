@@ -1,27 +1,19 @@
-///product of array except itself:
+///contains duplicate:
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 using namespace std;
 
 int main(){
-    vector<int> nums = {1,2,3,4};
+    vector<int> nums = {1,3,2,3,5};
     int size = nums.size();
-    vector<int> preffix(size, 1) ;
-    vector<int> suffix(size,1) ;
-    vector<int> ans(size,1);
-    
-    for(int i = 1 ; i < size ;i++ ){
-        preffix[i] = preffix[i-1] * nums[i-1];
+    sort(nums.begin(), nums.end());
+    for(int i = 0 ;i< size-1; i++){
+        if(nums[i] == nums[i+1]){
+            return true ;
+        }
     }
-    for(int i = size -2 ; i>= 0; i--){
-        suffix[i] = suffix[i+1]*nums[i+1];
-    }
-    for(int i = 0 ;i< size ;i++){
-        ans[i] = preffix[i]*suffix[i];
-    }
-    for(int i : ans){
-        cout << i << endl ;
-    }
+    return false ;
 }
 
