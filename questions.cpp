@@ -1,4 +1,4 @@
-/// Best time to buy and sell stock:
+///sort array by parity II :
 
 #include <iostream>
 #include <vector>
@@ -7,14 +7,20 @@ using namespace std;
 int main(){
     vector<int> nums = {7,1,3,5,6,2};
     int size = nums.size();
-    int bb = nums[0];
-        int sp = 0;
-    for(int i = 1 ; i< size ; i++){
-        if(nums[i] > bb){
-            sp = max(sp , nums[i] - bb);
+    int i = 0 , j = 1;
+    while (j < size && i < size){
+        if(nums[i] % 2 == 0){
+            i = i + 2;
+        }else if(nums[j] % 2 != 0){
+            j = j+2;
+        }else if(nums[i] % 2 != 0 && nums[j] % 2 == 0){
+            swap(nums[i],nums[j]);
+            i = i+2;
+            j = j+2;
         }
-        bb = min(nums[i],bb);
     }
-    cout << "the maximum profit is -" << sp;
+    for(int i: nums){
+        cout << i;
+    }
 }
 
