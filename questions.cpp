@@ -1,33 +1,20 @@
-/// squares of sorted array:
+/// Best time to buy and sell stock:
 
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 
 int main(){
-    vector<int> nums = {-4,-2,1,3,10};
+    vector<int> nums = {7,1,3,5,6,2};
     int size = nums.size();
-    int st = 0 , end = size -1;
-    vector<int> ans;
-    while(st <=end){            
-        int sq_st = nums[st] * nums[st];
-        int sq_end = nums[end] * nums[end];
-        if(sq_st > sq_end){
-            ans.push_back(sq_st);
-            st++;
-        }else if(sq_end > sq_st){
-            ans.push_back(sq_end);
-            end--;
-        }else if(st == end){
-            ans.push_back(sq_st);
-            st++;
-        }else{
-            ans.push_back(sq_end);        
-            end--; 
+    int bb = nums[0];
+        int sp = 0;
+    for(int i = 1 ; i< size ; i++){
+        if(nums[i] > bb){
+            sp = max(sp , nums[i] - bb);
         }
+        bb = min(nums[i],bb);
     }
-    reverse(ans.begin() , ans.end());
-    ///now print elements of ans ;
+    cout << "the maximum profit is -" << sp;
 }
 
