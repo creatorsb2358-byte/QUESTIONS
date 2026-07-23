@@ -1,26 +1,22 @@
-///sort array by parity II :
+///find the xor of numbers which appear twice:
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
 int main(){
-    vector<int> nums = {7,1,3,5,6,2};
+    vector<int> nums = {7,1,3,5,6,3,6};
     int size = nums.size();
-    int i = 0 , j = 1;
-    while (j < size && i < size){
-        if(nums[i] % 2 == 0){
-            i = i + 2;
-        }else if(nums[j] % 2 != 0){
-            j = j+2;
-        }else if(nums[i] % 2 != 0 && nums[j] % 2 == 0){
-            swap(nums[i],nums[j]);
-            i = i+2;
-            j = j+2;
+    int ans = 0;
+    for(int i = 0; i< size ; i++){
+        for(int j = i+1; j< size ; j++){        
+            if(nums[i] == nums[j]){
+                ans ^= nums[i]; 
+                break;
+            }
         }
+        
     }
-    for(int i: nums){
-        cout << i;
-    }
+    cout << ans;     
 }
 
