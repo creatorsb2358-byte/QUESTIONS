@@ -1,26 +1,27 @@
-///count total mountain and valleys:
+///find the highest altitude:
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
 int main(){
-    vector<int> nums = {1,2,3,2,5};
-    int count = 0;
-    int left = 0;
-
-    for (int i = 1; i < nums.size() - 1; ++i) {
-        if (nums[i] != nums[i + 1]) {
-            if ((nums[i] > nums[left] && nums[i] > nums[i + 1]) ||
-                (nums[i] < nums[left] && nums[i] < nums[i + 1])) {
-                ++count;
-            }
-            left = i;
-                
+    vector<int> gain = {-5,1,5,0,-7};
+    int size = gain.size();
+    int cs = 0;
+    int ans = INT32_MIN;
+    for(int i = 0 ; i< size ;i++){
+        cs+= gain[i];
+        if(i > 0){
+        gain[i] = cs;
         }
+        ans = max(gain[i] , ans);
     }
+    if(ans < 0){
+        return 0;
 
-    cout << count;
+    }else{
+        return ans;
+    }
 
 }
 
