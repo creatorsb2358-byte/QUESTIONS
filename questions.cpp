@@ -1,27 +1,21 @@
-///find the highest altitude:
+/// binary search 
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
 int main(){
-    vector<int> gain = {-5,1,5,0,-7};
-    int size = gain.size();
-    int cs = 0;
-    int ans = INT32_MIN;
-    for(int i = 0 ; i< size ;i++){
-        cs+= gain[i];
-        if(i > 0){
-        gain[i] = cs;
+    int arr[] = {1,3,5,6,9,12};
+    int target = 12;
+    int st = 0, end = 5;
+    while(st <= end){
+        int mid = st + (end-st)/2;
+        if(arr[mid] < target){
+            st = mid+1;
+        }else if(arr[mid] > target){
+            end = mid-1;
+        }else{
+            return mid;
         }
-        ans = max(gain[i] , ans);
     }
-    if(ans < 0){
-        return 0;
-
-    }else{
-        return ans;
-    }
-
+    return -1;
 }
-
