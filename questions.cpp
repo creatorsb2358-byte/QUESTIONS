@@ -1,4 +1,4 @@
-///Book allocation problem;
+///container with most water;
 
 #include <iostream>
 #include <vector>
@@ -6,47 +6,21 @@
 #include <numeric>
 using namespace std;
 
-    bool canSplit(vector<int>&nums, int limitSum, int k){
-
-        int n = nums.size();
-        int currSum = 0, splitCnt = 1;
-        for(int i = 0 ; i < n ; i++){
-
-            if(currSum + nums[i] <= limitSum){
-                currSum += nums[i];
-            }
-
-            else{
-                currSum = nums[i];
-                splitCnt++;
-            }
-        }
-        return splitCnt <= k;
-    }
-    int splitArray(vector<int>& nums, int k) {
-
-        if(k > nums.size()) return -1;
-
-        int low = *max_element(nums.begin(), nums.end());
-        int high = accumulate(nums.begin(), nums.end(), 0);
-        while(low < high){
-         
-            int mid = low + (high - low) / 2;
-           
-            if(canSplit(nums, mid, k)){
-               high = mid;
-            }
-
-            else{
-                low = mid + 1;
-            }
-        }
-        return low;
-    }
 
 int main(){
-    vector<int> nums = {2,1,3,4};
-    int k = 2;
-    int result = splitArray(nums,k);
-    cout << result ;
+    vector<int> height = {1,8,6,2,5,4,8,3,7};
+    int ans = 0;
+        
+    int size = height.size();
+    int st = 0, end = size-1;
+    while(st <= end){
+        int breath = end - st;
+        int heigh = min(height[st],height[end]);
+        int area = breath * heigh ;
+        ans = max(ans , area); 
+        height[st] < height[end] ? st++:end--;
+
+    }
+    return ans;
+        
 }
