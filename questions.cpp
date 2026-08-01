@@ -1,45 +1,43 @@
-///Aggressive cows problem:
+///Koko eating banana Problem:
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-bool isvalid(vector<int> & nums , int C , int limit){
+bool isvalid(vector<int>& nums, int h , int k){
     int size = nums.size();
-    int cows = 1 , laststall = nums[0];
-    for(int i = 1;i < size ; i++){
-        if(nums[i] - laststall >= limit ){
-            cows++;
-            laststall = nums[i];
+    int hours = 0;
+    for(int pile : nums){
+        hours += pile / k;
+        if(pile % k != 0){
+            hours++;
         }
-        if(cows == C){
-        return true;
+        if(hours > h){
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
-
-int working(vector<int>& arr , int C){
-    sort(arr.begin(), arr.end());
+int working(vector<int>& arr , int h){
+    sort(arr.begin(),arr.end());
     int size = arr.size();
-    int st = 1 , end = arr[size-1]-arr[0] , ans = -1;
+    int st = 1 , end = arr[size-1], ans = -1;
     while(st <= end){
-        int mid = st + (end - st)/2;
-        if(isvalid(arr , C , mid)){
-            ans = mid;
-            st = mid+1;
-            
-        }else{
+        int mid = st + (end-st)/2;
+        if(isvalid(arr , h , mid)){
             end = mid-1;
+            ans = mid;
+        }else{
+            st = mid+1;
         }
     }
     return ans;
 }
 
 int main(){
-    vector<int> nums = {1,2,8,4,9};
-    int C = 3 ;
-    cout << working(nums , C);
+    vector<int> nums = {3,6,7,11};
+    int h = 8;
+    cout << working(nums , h);
 }
