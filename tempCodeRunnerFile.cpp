@@ -1,1 +1,1 @@
-int n 
+ while(st <= end){
