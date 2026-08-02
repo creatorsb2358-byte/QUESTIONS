@@ -1,4 +1,4 @@
-///find peak number in array:
+///sqr(x):
 
 #include <iostream>
 #include <vector>
@@ -6,18 +6,17 @@
 using namespace std;
 
 int main(){
-    vector<int> nums = {1,2,1,3,5,6,4};
-    int st = 0;
-    int end = nums.size() - 1;
-
-    while (st < end) {
-        int mid = st + (end - st) / 2;
-        if (nums[mid] > nums[mid + 1]) {
+    int n = 6;
+    int st = 0 , end = n;
+    while(st < end){
+        int mid = st + (end-st)/2;
+        int square = mid * mid;
+        if(square < n){
+            st = mid+1;
+        }else if(square > n){
             end = mid;
-        } else {
-            st = mid + 1;
         }
     }
-    cout << st;
+    cout << st-1;
 
 }
