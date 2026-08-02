@@ -1,4 +1,4 @@
-///find minimum in rotated sorted array:
+///find peak number in array:
 
 #include <iostream>
 #include <vector>
@@ -6,17 +6,18 @@
 using namespace std;
 
 int main(){
-    vector<int> nums = {3,4,5,6,1,2};
-    int size = nums.size();
-    int st = 0 , end = size -1 ;
-    while(st <= end){
-        int mid = st + (end-st)/2;
-        if(nums[mid] > nums[end]){
-            st = mid+1;
-        }else if(nums[mid] < nums[end]){
+    vector<int> nums = {1,2,1,3,5,6,4};
+    int st = 0;
+    int end = nums.size() - 1;
+
+    while (st < end) {
+        int mid = st + (end - st) / 2;
+        if (nums[mid] > nums[mid + 1]) {
             end = mid;
-        }else if(st == end){
-            return nums[mid];
+        } else {
+            st = mid + 1;
         }
     }
+    cout << st;
+
 }
