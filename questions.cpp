@@ -1,4 +1,4 @@
-///search inert position:
+///find minimum in rotated sorted array:
 
 #include <iostream>
 #include <vector>
@@ -6,20 +6,17 @@
 using namespace std;
 
 int main(){
-    vector<int> nums = {-1,3,5,6,11};
+    vector<int> nums = {3,4,5,6,1,2};
     int size = nums.size();
-    int target = 9;
-    int st = 0 , end = size - 1;
+    int st = 0 , end = size -1 ;
     while(st <= end){
         int mid = st + (end-st)/2;
-        if(target == nums[mid]){
-            return mid;
-        }
-        if(target > nums[mid]){
+        if(nums[mid] > nums[end]){
             st = mid+1;
-        }else if(target < nums[mid]){
-            end = mid-1;
+        }else if(nums[mid] < nums[end]){
+            end = mid;
+        }else if(st == end){
+            return nums[mid];
         }
     }
-    return st;
 }
