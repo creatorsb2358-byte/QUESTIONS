@@ -1,1 +1,1 @@
-1
+int st = *max_element(nums.begin(), nums.end()) , end =sum ;
