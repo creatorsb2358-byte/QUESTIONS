@@ -1,23 +1,20 @@
-///Bubble sort:
+///selection sort:
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-int bubblesort(vector<int>& arr ){
+int selectionsort(vector<int>& arr ){
     int size = arr.size();
     for(int i = 0 ; i< size ;i++){
-        bool istrue = false;
-        for(int j = 0 ;j < size-i-1;j++){
-            if(arr[j] > arr[j+1]){
-                swap(arr[j],arr[j+1]);
-                istrue = true;
+        int si = i;
+        for(int j = i+1 ;j < size; j++){
+            if(arr[j] < arr[si]){
+                si = j;   
             }
         }
-        if(!istrue){
-            return 0 ;
-        }
+        swap(arr[si],arr[i]);
     }
 }
 
@@ -30,7 +27,7 @@ int printarray(vector<int>& nums){
 
 int main(){
     vector<int>nums = {1,3,2,5,4};
-    bubblesort(nums);
+    selectionsort(nums);
     printarray(nums);
     return 0;
 }
