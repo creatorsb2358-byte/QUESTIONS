@@ -1,55 +1,40 @@
-
+///find the first and last occurence:
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-bool isvalid(vector<int>& arr, int days , int limit){
-    int weight = arr[0];
-    int size = arr.size();
-    int day = 1;
-    
-    for(int i = 1 ; i< size ; i++){
-        if(arr[i] > limit){
-            return false;
-        }
-        if(weight + arr[i] <= limit){
-            weight += arr[i];
-        }else{
-            day++;
-            weight = arr[i];
-        }
-    }
-    if(day <= days){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-int working(vector<int>& nums , int days){
-    int size = nums.size();
-    int sum = 0;
-    for(int i = 0 ; i< size ; i++){
-        sum+= nums[i];
-    }
-    int st = *max_element(nums.begin(), nums.end()) , end =sum ;
-    int ans = -1;
-    while(st <= end){
-        int mid = st +(end-st)/2;
-        if(isvalid(nums , days , mid)){
-            ans = mid;
-            end = mid-1;
-        }else{
-            st = mid+1;
-        }
-    }
-    return ans;
-}
-
 int main(){
-    int days = 4;
-    vector<int> nums = {1,2,3,1,1};
-    cout << working(nums, days);
+    vector<int> nums = {5,7,7,8,8,10};
+    int target = 8;
+    int size = nums.size();
+    vector<int> arr;
+    int st = 0 , end = size -1, ans = -1;
+    while(st <= end){
+        int first = st + (end-st)/2;
+        if(nums[first] == target){
+            ans = first;
+            end = first -1;
+        }else if(nums[first] > target){
+            end = first -1;
+        }else if(nums[first]< target){
+            st = first +1;
+        }
+    }
+    arr.push_back(ans);
+    int st1 = 0, end1 = size -1 , ans1 =-1;
+    while(st1 <= end1){
+        int last = st1 + (end1-st1)/2;
+        if(nums[last] == target){
+            ans1 = last;
+            st = last +1;
+        }else if(nums[last] > target){
+            end = last -1;
+        }else if(nums[last] < target){
+            st = last +1;
+        }
+    }
+    arr.push_back(ans1);
+    return arr;
 }
