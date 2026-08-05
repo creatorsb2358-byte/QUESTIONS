@@ -1,32 +1,26 @@
-///insertion sort:
+/// DNF (dutch national flag algorithm):
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-int insertionsort(vector<int>& arr ){
-    int size = arr.size();
-    for(int i = 1 ; i< size ;i++){
-        int current = arr[i], prev = i-1;
-        while(prev >= 0 && arr[prev] > current){
-            arr[prev+1] = arr[prev];
-            prev--;
-        }
-        arr[prev+1] = current;
-    }
-}
-
-int printarray(vector<int>& nums){
-    int size = nums.size();
-    for(int i = 0 ;i< size ;i++){
-        cout << nums[i] << " ";
-    }
-}
-
 int main(){
-    vector<int>nums = {1,3,2,5,4};
-    insertionsort(nums);
-    printarray(nums);
-    return 0;
+    vector<int> nums = {1,2,0,2,1,1,2,0,0};
+    int size = nums.size();
+    int low = 0 , mid = 0 , end = size - 1;
+    while(mid <= end){
+        if(nums[mid] == 0){
+            swap(nums[mid],nums[low]);
+            low++ , mid++;
+        }else if(nums[mid] == 2){
+            swap(nums[mid],nums[end]);
+            end--;
+        }else{
+            mid++;
+        }
+    }
+    for(int i : nums){
+        cout << i << " " ;
+    }
 }
