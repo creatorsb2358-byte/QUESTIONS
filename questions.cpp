@@ -1,27 +1,32 @@
-///first bad version:
+///Guess number higher and lower:
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-bool isbadversion(int n){
-    if(n >= 5){
-        return true;
+bool guess(int n){
+    int guess = 6;
+    if(n > guess){
+        return -1;
+    }else if(n < guess){
+        return 1;
+    }else{
+        return 0;
     }
 }
 
 int main(){
-    int n = 8;
-    int st = 1 , end = n , ans = 0;
+    int n = 10;
+    int st = 1 , end = n ;
     while(st <= end){
         int mid = st + (end-st)/2;
-        if(isbadversion(mid)){
-            ans = mid;
+        if(guess(mid) == -1){
             end = mid-1;
-        }else{
+        }else if(guess(mid) == 1){
             st = mid+1;
+        }else{
+            cout << mid;
         }
     }
-    cout << ans;
 }
