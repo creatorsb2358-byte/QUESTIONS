@@ -1,32 +1,17 @@
-///Guess number higher and lower:
+///Reverse of string:
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <string>
 using namespace std;
 
-bool guess(int n){
-    int guess = 6;
-    if(n > guess){
-        return -1;
-    }else if(n < guess){
-        return 1;
-    }else{
-        return 0;
-    }
-}
-
 int main(){
-    int n = 10;
-    int st = 1 , end = n ;
-    while(st <= end){
-        int mid = st + (end-st)/2;
-        if(guess(mid) == -1){
-            end = mid-1;
-        }else if(guess(mid) == 1){
-            st = mid+1;
-        }else{
-            cout << mid;
-        }
+    vector<char> s = {'h','e','l','l','o'};
+    int st = 0 , end = s.size()-1;
+    while(st < end){
+        swap(s[st++],s[end--]);
+    }
+    for(char s : s){
+        cout << s;
     }
 }
