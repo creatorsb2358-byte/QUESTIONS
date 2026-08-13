@@ -1,26 +1,37 @@
-///sort colours:
+///permutation in string:
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <string>
 using namespace std;
 
-int main(){
-    vector<int> nums = {1,2,0,2,1,1,2,0,0};
-    int size = nums.size();
-    int low = 0 , mid = 0 , end = size - 1;
-    while(mid <= end){
-        if(nums[mid] == 0){
-            swap(nums[mid],nums[low]);
-            low++ , mid++;
-        }else if(nums[mid] == 2){
-            swap(nums[mid],nums[end]);
-            end--;
-        }else{
-            mid++;
+
+bool isfreqsame(int freq1[] , int freq2[]){
+    for(int i = 0 ; i<26 ;i++){
+        if(freq1[i] != freq2[i]){
+            return false;
         }
     }
-    for(int i : nums){
-        cout << i << " " ;
+    return true;
+}
+bool checkInclusion(string s1, string s2) {
+    int freq1[26] = {0};
+    for(int i = 0 ; i<s1.length(); i++){
+        freq1[s1[i]-'a']++;
     }
+        
+    int windowsize = s1.length();
+    for(int i = 0 ;i<s2.length();i++){
+        int windidx = 0 , idx = i;
+        int freq2[26]={0};
+        while(windidx < windowsize && idx < s2.length()){
+            freq2[s2[idx]-'a']++;
+            windidx++, idx++;
+        }
+        if(isfreqsame(freq1, freq2)){
+            return true ;
+        }
+    }
+    return false;
+        
 }
