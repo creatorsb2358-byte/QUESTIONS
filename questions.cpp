@@ -1,4 +1,4 @@
-///Defanging an IP address:
+///string compression:
 
 #include <iostream>
 #include <vector>
@@ -7,14 +7,25 @@
 using namespace std;
 
 int main(){
-    string s = "1.1.1.1";
-    string ans = "";
-    for(int i = 0 ;i < s.length() ; i++){
-        if(s[i] == '.'){
-            ans += "[.]";
-        }else{
-            ans += s[i];
+    vector<int> chars = {'a','a','b','b','c','c','c'};
+    int idx = 0 ;
+    for(int i = 0 ;i < chars.size() ; i++){
+        int ch = chars[i];
+        int count = 0 ;
+        while(i < chars.size() && chars[i] == ch){
+            count ++ , i++;
         }
+        if(count == 1){
+            chars[idx++] = ch;
+        }else {
+            chars[idx++] = ch;
+            string str = to_string(count);
+            for(char digit : str){
+                chars[idx++] = digit;
+            }
+        }
+        i--;
     }
-    return s;
+    chars.resize(idx);
+    return idx;
 }
