@@ -1,4 +1,4 @@
-///reverse words in a string:
+///Defanging an IP address:
 
 #include <iostream>
 #include <vector>
@@ -7,19 +7,14 @@
 using namespace std;
 
 int main(){
-    string s = "the sky is blue";
-    reverse(s.begin(),s.end());
+    string s = "1.1.1.1";
     string ans = "";
-    for(int i = 0 ; i< s.length(); i++){
-        string word = "";
-        while(i<s.length() && s[i] != ' '){
-            word += s[i];
-            i++;
-        }
-        reverse(word.begin(),word.end());
-        if(word.length()>0){
-            ans += " " + word;
+    for(int i = 0 ;i < s.length() ; i++){
+        if(s[i] == '.'){
+            ans += "[.]";
+        }else{
+            ans += s[i];
         }
     }
-    return ans.substr(1);
+    return s;
 }
