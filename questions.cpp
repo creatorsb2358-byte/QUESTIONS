@@ -1,4 +1,4 @@
-///string compression:
+///Sieve of Eratosthenes(count prime numbers):
 
 #include <iostream>
 #include <vector>
@@ -7,25 +7,16 @@
 using namespace std;
 
 int main(){
-    vector<int> chars = {'a','a','b','b','c','c','c'};
-    int idx = 0 ;
-    for(int i = 0 ;i < chars.size() ; i++){
-        int ch = chars[i];
-        int count = 0 ;
-        while(i < chars.size() && chars[i] == ch){
-            count ++ , i++;
+    int n = 10;
+    vector<bool> isprime(n+1,true);
+    int count = 0;
+    for(int i = 2 ; i < n ; i++){
+        if(isprime[i]){
+            count++;
         }
-        if(count == 1){
-            chars[idx++] = ch;
-        }else {
-            chars[idx++] = ch;
-            string str = to_string(count);
-            for(char digit : str){
-                chars[idx++] = digit;
-            }
+        for(int j = 2*i ; j<n ;j= j+i){
+            isprime[j] = false;
         }
-        i--;
     }
-    chars.resize(idx);
-    return idx;
+    cout << count;
 }
