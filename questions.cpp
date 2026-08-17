@@ -1,4 +1,4 @@
-///Sieve of Eratosthenes(count prime numbers):
+///Armstrong number:
 
 #include <iostream>
 #include <vector>
@@ -6,17 +6,23 @@
 #include <algorithm>
 using namespace std;
 
-int main(){
-    int n = 10;
-    vector<bool> isprime(n+1,true);
-    int count = 0;
-    for(int i = 2 ; i < n ; i++){
-        if(isprime[i]){
-            count++;
-        }
-        for(int j = 2*i ; j<n ;j= j+i){
-            isprime[j] = false;
-        }
+bool isarm(int n){
+    int ans = 0 ;
+    while(n != 0){
+        int digit = n % 10;
+        ans += digit*digit*digit;
+        n /= 10;
     }
-    cout << count;
+    if(ans == n){
+        return true;
+    }
+}
+int main(){
+    int n = 153;
+    if(isarm(n)){
+        cout << n << " is an armstrng number";
+    }else{
+        cout << "not an armstrong number";
+    }
+    return 0;
 }
