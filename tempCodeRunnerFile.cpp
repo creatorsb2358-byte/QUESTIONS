@@ -1,1 +1,4 @@
-int st = *max_element(nums.begin(), nums.end()) , end =sum ;
+else {
+        cout << "Wrong!\n";
+        score -= 5;
+    }

@@ -1,4 +1,4 @@
-///Euclids algorithm:
+/// permutation in string revision:
 
 #include <iostream>
 #include <vector>
@@ -6,21 +6,33 @@
 #include <algorithm>
 using namespace std;
 
-int isgcd(int a , int b){
-    while(a > 0 && b >0){
-        if(a > b){
-            a = a%b;
-        }else if(b > a){
-            b = b%a;
+bool ispermutation(int freq1[], int freq2[]){
+    for(int i = 0 ; i < 26 ; i++){
+        if(freq1[i] == freq2[i]){
+            return true;
         }
     }
-    if(a == 0){
-        return b;
-    }else{
-        return a;
-    }
+    return false;
 }
+
 int main(){
-    cout << "the greatest common divisor is : " << isgcd(20,28);
-    return 0;
+    string part = {'a','b'};
+    string s = {'e','i','d','b','a','o','o'};
+    int freq1[26];
+    for(int i = 0 ; i< 26 ;i++){
+        freq1[part[i] - 'a']++;
+    }
+    int windowsize = part.length();
+    for(int i = 0 ; i < s.length() ; i++){
+        int windidx = 0 , idx = i ;
+        int freq2[26];
+        while(windidx < windowsize && idx < s.length()){
+            freq2[s[idx]-'a']++;
+            windidx++ , idx++;
+        }
+        if(ispermutation(freq1 , freq2)){
+            return true;
+        }
+    }
+    return false;
 }
