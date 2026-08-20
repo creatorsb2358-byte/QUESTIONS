@@ -7,17 +7,18 @@
 using namespace std;
 
 int main(){
-    int matrix[4][3] = {{1,2,3},{4,5,6},{7,8,9},{10,11,12}};
+    int matrix[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
     int row = 4 , column = 3;
     int ans = INT32_MIN;
-    
+    int sum = 0 ;
     for(int i = 0 ; i< row ; i++){
-        int sum = 0 ;
+       
         for(int j = 0 ; j < column ; j++){
-            sum += matrix[i][j];
-            ans = max(ans, sum);
+            if(i==j){
+                sum+= matrix[i][j];
+            }
         }
        
     }
-    cout << ans;
+    cout << sum;
 }
