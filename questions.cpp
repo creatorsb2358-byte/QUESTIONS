@@ -1,4 +1,4 @@
-/// fibonacci problem recursion:
+/// recursive binary search:
 
 #include <iostream>
 #include <vector>
@@ -6,15 +6,23 @@
 #include <algorithm>
 using namespace std;
 
-int fib(int n){
-    
-    if(n==0 || n==1){
-        return n ;
+int scan(vector<int>& nums, int target,int st, int end){
+    while(st < end){
+        int mid = st + (end-st)/2;
+        if(nums[mid]==target){
+            return mid;
+        }else if(nums[mid]>target){
+            return scan(nums,target,st,mid-1);
+        }else{
+            return scan(nums,target,mid+1,end);
+        }
     }
-    return fib(n-1) + fib(n-2);
-    
+    return -1;
 }
 
 int main(){
-    cout << fib(4);
+    vector<int> nums = {1,3,5,6,9,10};
+    int target = 6,st = 0 , end = nums.size();
+    cout << scan(nums,target,st,end);
 }
+
