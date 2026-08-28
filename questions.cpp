@@ -1,4 +1,4 @@
-/// recursive binary search:
+/// subsets:
 
 #include <iostream>
 #include <vector>
@@ -6,23 +6,29 @@
 #include <algorithm>
 using namespace std;
 
-int scan(vector<int>& nums, int target,int st, int end){
-    while(st < end){
-        int mid = st + (end-st)/2;
-        if(nums[mid]==target){
-            return mid;
-        }else if(nums[mid]>target){
-            return scan(nums,target,st,mid-1);
-        }else{
-            return scan(nums,target,mid+1,end);
-        }
+void createSubset(vector<int>& nums, int index, vector<vector<int>>& res, vector<int>& subset) {
+    if (index == nums.size()) {
+        res.push_back(subset);
+        return;
     }
-    return -1;
-}
+
+    subset.push_back(nums[index]);
+    createSubset(nums, index + 1, res, subset);
+
+    subset.pop_back();
+    createSubset(nums, index + 1, res, subset);
+    }
+    
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> res;
+    vector<int> subset;
+
+    createSubset(nums, 0, res, subset);
+    return res;        
+    }    
 
 int main(){
-    vector<int> nums = {1,3,5,6,9,10};
-    int target = 6,st = 0 , end = nums.size();
-    cout << scan(nums,target,st,end);
+    vector<int> nums = {1,2,3};
+    cout << subsets;
 }
 
