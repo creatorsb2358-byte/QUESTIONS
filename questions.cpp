@@ -1,4 +1,4 @@
-/// subsets:
+/// N queens:
 
 #include <iostream>
 #include <vector>
@@ -6,29 +6,47 @@
 #include <algorithm>
 using namespace std;
 
-void createSubset(vector<int>& nums, int index, vector<vector<int>>& res, vector<int>& subset) {
-    if (index == nums.size()) {
-        res.push_back(subset);
-        return;
+bool issafe(vector<string>& board , int row , int col , int n){
+    for(int i = 0 ; i<n ; i++){
+        if(board[row][i] == 'Q'){
+            return false;
+        }
     }
-
-    subset.push_back(nums[index]);
-    createSubset(nums, index + 1, res, subset);
-
-    subset.pop_back();
-    createSubset(nums, index + 1, res, subset);
+    for(int i = 0 ; i< n ; i++){
+        if(board[i][col] == 'Q'){
+            return false;
+        }
     }
-    
-vector<vector<int>> subsets(vector<int>& nums) {
-    vector<vector<int>> res;
-    vector<int> subset;
-
-    createSubset(nums, 0, res, subset);
-    return res;        
-    }    
-
-int main(){
-    vector<int> nums = {1,2,3};
-    cout << subsets;
+    for(int i = row , j = col ; i >= 0 && j >= 0 ; i--,j--){
+        if(board[i][j]=='Q'){
+            return false;
+        }
+    }
+    for(int i = row , j = col ; i >=0 && j <= n ; i--,j++){
+        if(board[i][j]){
+            return false;
+        }
+    }
+    return true;
 }
 
+void nqueen(vector<string> &board , int row , int n , vector<vector<string>> & ans){
+    if(row == n){
+        ans.push_back(board);
+        return;
+    }
+    for(int i = 0 ; i<n ;i++){
+        if(issafe(board, row, i , n)){
+            board[row][i] = 'Q';
+            nqueen(board,row+1,n,ans);
+            board[row][i] = '.';
+        }
+    }
+}
+
+vector<vector<string>> solveNQueens(int n) {
+    vector<string> board(n,string(n,'.'));
+    vector<vector<string>> ans;
+    nqueen(board,0,n,ans);
+    return ans;
+}
