@@ -1,4 +1,4 @@
-/// N queens:
+/// sudoku solver :
 
 #include <iostream>
 #include <vector>
@@ -6,47 +6,73 @@
 #include <algorithm>
 using namespace std;
 
-bool issafe(vector<string>& board , int row , int col , int n){
-    for(int i = 0 ; i<n ; i++){
-        if(board[row][i] == 'Q'){
-            return false;
-        }
+class Solution {
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solver(board, 0, 0);
     }
-    for(int i = 0 ; i< n ; i++){
-        if(board[i][col] == 'Q'){
-            return false;
-        }
-    }
-    for(int i = row , j = col ; i >= 0 && j >= 0 ; i--,j--){
-        if(board[i][j]=='Q'){
-            return false;
-        }
-    }
-    for(int i = row , j = col ; i >=0 && j <= n ; i--,j++){
-        if(board[i][j]){
-            return false;
-        }
-    }
-    return true;
-}
 
-void nqueen(vector<string> &board , int row , int n , vector<vector<string>> & ans){
-    if(row == n){
-        ans.push_back(board);
-        return;
-    }
-    for(int i = 0 ; i<n ;i++){
-        if(issafe(board, row, i , n)){
-            board[row][i] = 'Q';
-            nqueen(board,row+1,n,ans);
-            board[row][i] = '.';
+    bool solver(vector<vector<char>>& board, int row, int col) {
+        if (row == 9) {
+            return true;
         }
-    }
-}
 
-vector<vector<string>> solveNQueens(int n) {
-    vector<string> board(n,string(n,'.'));
-    vector<vector<string>> ans;
-    nqueen(board,0,n,ans);
-    return ans;
-}
+        int nextRow = row;
+        int nextCol = col + 1;
+
+        if (nextCol == 9) {
+            nextRow = row + 1;
+            nextCol = 0;
+        }
+
+        if (board[row][col] != '.') {
+            return solver(board, nextRow, nextCol);
+        }
+
+        for (int i = 1; i <= 9; i++) {
+            if (safe(board, row, col, i)) {
+                board[row][col] = '0' + i;
+
+                if (solver(board, nextRow, nextCol)) {
+                    return true;
+                }
+
+                board[row][col] = '.';
+            }
+        }
+
+        return false;
+    }
+
+    bool safe(vector<vector<char>>& board, int row, int col, int val) {
+        char ch = '0' + val;
+
+        // Check row
+        for (int i = 0; i < 9; i++) {
+            if (board[row][i] == ch) {
+                return false;
+            }
+        }
+
+        // Check column
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == ch) {
+                return false;
+            }
+        }
+
+        // Check 3x3 box
+        int sr = (row / 3) * 3;
+        int sc = (col / 3) * 3;
+
+        for (int i = sr; i < sr + 3; i++) {
+            for (int j = sc; j < sc + 3; j++) {
+                if (board[i][j] == ch) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+};
