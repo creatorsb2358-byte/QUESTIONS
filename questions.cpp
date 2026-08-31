@@ -1,4 +1,4 @@
-/// sudoku solver :
+/// combination sum:
 
 #include <iostream>
 #include <vector>
@@ -6,73 +6,31 @@
 #include <algorithm>
 using namespace std;
 
-class Solution {
-public:
-    void solveSudoku(vector<vector<char>>& board) {
-        solver(board, 0, 0);
+void anss(vector<int>& candidates , int currsum , int curridx ,int target, vector<vector<int>>& ans , vector<int>& small){
+    if(currsum > target) return ;
+    if(currsum == target){
+        ans.push_back(small);
+        return ;
+    }
+    for(int i = curridx; i<candidates.size(); i++){
+        currsum += candidates[i];
+        small.push_back(candidates[i]);
+        anss(candidates,currsum , i , target , ans , small);
+        small.pop_back();
     }
 
-    bool solver(vector<vector<char>>& board, int row, int col) {
-        if (row == 9) {
-            return true;
-        }
+}
 
-        int nextRow = row;
-        int nextCol = col + 1;
+vector<vector<int>> combsum(vector<int>& candidates, int target){
+    int currsum = 0 , curridx  = 0 ;
+    vector<int> small ;
+    vector<vector<int>> ans;
+    anss(candidates , currsum,curridx,target,ans, small);
+    return ans;
+}
 
-        if (nextCol == 9) {
-            nextRow = row + 1;
-            nextCol = 0;
-        }
-
-        if (board[row][col] != '.') {
-            return solver(board, nextRow, nextCol);
-        }
-
-        for (int i = 1; i <= 9; i++) {
-            if (safe(board, row, col, i)) {
-                board[row][col] = '0' + i;
-
-                if (solver(board, nextRow, nextCol)) {
-                    return true;
-                }
-
-                board[row][col] = '.';
-            }
-        }
-
-        return false;
-    }
-
-    bool safe(vector<vector<char>>& board, int row, int col, int val) {
-        char ch = '0' + val;
-
-        // Check row
-        for (int i = 0; i < 9; i++) {
-            if (board[row][i] == ch) {
-                return false;
-            }
-        }
-
-        // Check column
-        for (int i = 0; i < 9; i++) {
-            if (board[i][col] == ch) {
-                return false;
-            }
-        }
-
-        // Check 3x3 box
-        int sr = (row / 3) * 3;
-        int sc = (col / 3) * 3;
-
-        for (int i = sr; i < sr + 3; i++) {
-            for (int j = sc; j < sc + 3; j++) {
-                if (board[i][j] == ch) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-};
+int main(){
+    vector<int> candidates = {2,3,5};
+    int target = 8;
+    combsum(candidates,target);
+}
