@@ -1,4 +1,4 @@
-/// combination sum:
+/// combinations:
 
 #include <iostream>
 #include <vector>
@@ -6,34 +6,28 @@
 #include <algorithm>
 using namespace std;
 
-bool ispalin(string part){
-    string part2 = part;
-    reverse(part2.begin(),part2.end());
-    return part2 == part;
-}
-
-void palpart(string s ,vector<string>& partitions, vector<vector<string>>& ans){
-    if(s.size() == 0){
-        ans.push_back(partitions);
+void solve(int start, int n , int k , vector<int>& path, vector<vector<int>>& ans){
+    if(path.size() == k){
+        ans.push_back(path);
         return;
     }
-    for(int i = 0 ; i< s.size(); i++){
-        string part = s.substr(0,i+1);
-        if(ispalin(part)){
-            partitions.push_back(part);
-            palpart(s.substr(i+1),partitions,ans);
-            partitions.pop_back();
-        }
+    for(int i = start ; i<=n ; i++){
+        path.push_back(i);
+        solve(i+1,n,k,path,ans);
+        path.pop_back();
     }
 }
-vector<vector<string>> partition(string s) {
-    vector<string> partitions;
-    vector<vector<string>> ans;
-    palpart(s, partitions, ans);
+
+vector<vector<int>> combine(int n, int k) {
+    vector<int> path;
+    vector<vector<int>> ans;
+    int start = 1;
+    solve(start, n,k,path,ans);
     return ans;
 }
 
 int main(){
-    string s = "aab";
-    partition(s);
+    int n= 4;
+    int k = 2;
+    combine(n,k);
 }
