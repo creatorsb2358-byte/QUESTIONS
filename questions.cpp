@@ -1,4 +1,4 @@
-/// combination sum 2:
+/// permutations:
 
 #include <iostream>
 #include <vector>
@@ -6,38 +6,24 @@
 #include <algorithm>
 using namespace std;
 
-void solve(vector<int>& candidates, int idx , int sum ,int target ,vector<int>& small , vector<vector<int>>& ans){
-    if(sum > target) return;
-
-    if(sum == target){
-        ans.push_back(small);
+void solve(vector<int>& nums , int start ,  vector<vector<int>>& ans){
+    if(start == nums.size()){
+        ans.push_back(nums);
         return;
     }
-
-    for(int i = idx ; i<candidates.size(); i++){
-        small.push_back(candidates[i]);
-        sum += candidates[i];
-        solve(candidates,i+1,sum, target,small,ans);
-        small.pop_back();
-        sum-= candidates[i];
-        int idx = i+1;
-        while(idx < candidates.size() && candidates[idx] == candidates[idx-1]){
-            i++,idx++;
-        }
+    for(int i = start; i<nums.size(); i++){
+        swap(nums[i],nums[start]);
+        solve(nums,start+1,ans);
+        swap(nums[i],nums[start]);
     }
 }
-vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-    sort(candidates.begin(),candidates.end());
-    vector<int>small ;
+vector<vector<int>> permute(vector<int>& nums) {
     vector<vector<int>> ans;
-    int sum = 0;
-    int idx = 0;
-    solve(candidates,idx,sum , target , small , ans);
-    return ans;
+    solve(nums,0,ans);
+    return ans;   
 }
 
 int main(){
-    vector<int> candidates={2,1,2,5,2};
-    int target = 5;
-    combinationSum2(candidates,target);
+    vector<int> nums = {1,2,3};
+    permute(nums);
 }
