@@ -1,29 +1,41 @@
-/// permutations:
+/// permutations 2:
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <set>
 using namespace std;
 
-void solve(vector<int>& nums , int start ,  vector<vector<int>>& ans){
-    if(start == nums.size()){
+void solve(vector<int>& nums, int start, vector<vector<int>>& ans) {
+
+    if(start == nums.size()) {
         ans.push_back(nums);
         return;
     }
-    for(int i = start; i<nums.size(); i++){
-        swap(nums[i],nums[start]);
-        solve(nums,start+1,ans);
-        swap(nums[i],nums[start]);
+
+    set<int> used;
+
+    for(int i = start; i < nums.size(); i++) {
+
+        if(used.count(nums[i])) {
+            continue;
+        }
+
+        used.insert(nums[i]);
+
+        swap(nums[i], nums[start]);
+
+        solve(nums, start + 1, ans);
+
+        swap(nums[i], nums[start]);
     }
 }
-vector<vector<int>> permute(vector<int>& nums) {
-    vector<vector<int>> ans;
-    solve(nums,0,ans);
-    return ans;   
-}
 
-int main(){
-    vector<int> nums = {1,2,3};
-    permute(nums);
+vector<vector<int>> permuteUnique(vector<int>& nums) {
+    vector<vector<int>> ans;
+
+    solve(nums, 0, ans);
+
+    return ans;
 }
