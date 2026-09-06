@@ -1,4 +1,4 @@
-/// permutations 2:
+/// 3Sum closet:
 
 #include <iostream>
 #include <vector>
@@ -7,35 +7,35 @@
 #include <set>
 using namespace std;
 
-void solve(vector<int>& nums, int start, vector<vector<int>>& ans) {
-
-    if(start == nums.size()) {
-        ans.push_back(nums);
-        return;
-    }
-
-    set<int> used;
-
-    for(int i = start; i < nums.size(); i++) {
-
-        if(used.count(nums[i])) {
+int threeSumClosest(vector<int>& nums, int target) {
+    sort(nums.begin(),nums.end());
+    int closet = INT32_MAX;
+    int ans = 0;
+    for(int i = 0 ; i<nums.size(); i++){
+        if(i >0 && nums[i] == nums[i-1]){
             continue;
         }
+        int st = i+1;
+        int end = nums.size()-1;
+        while(st<end){
+            int sum = nums[i] + nums[st] + nums[end];
+            int diff = abs(sum - target);
+            if(diff < closet){
+                closet = diff;
+                ans = sum;
+            }
+            if(sum == target){
+                return sum;
+            }else if(sum > target){
+                end--;
+            }else{
+                st++;
+                while(st < end && nums[st] == nums[st-1]){
+                    st++;
+                }
+            }
 
-        used.insert(nums[i]);
-
-        swap(nums[i], nums[start]);
-
-        solve(nums, start + 1, ans);
-
-        swap(nums[i], nums[start]);
+        }
     }
-}
-
-vector<vector<int>> permuteUnique(vector<int>& nums) {
-    vector<vector<int>> ans;
-
-    solve(nums, 0, ans);
-
     return ans;
 }
