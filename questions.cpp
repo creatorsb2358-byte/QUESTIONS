@@ -1,4 +1,4 @@
-/// 3Sum closet:
+/// generate parentheses:
 
 #include <iostream>
 #include <vector>
@@ -7,35 +7,27 @@
 #include <set>
 using namespace std;
 
-int threeSumClosest(vector<int>& nums, int target) {
-    sort(nums.begin(),nums.end());
-    int closet = INT32_MAX;
-    int ans = 0;
-    for(int i = 0 ; i<nums.size(); i++){
-        if(i >0 && nums[i] == nums[i-1]){
-            continue;
-        }
-        int st = i+1;
-        int end = nums.size()-1;
-        while(st<end){
-            int sum = nums[i] + nums[st] + nums[end];
-            int diff = abs(sum - target);
-            if(diff < closet){
-                closet = diff;
-                ans = sum;
-            }
-            if(sum == target){
-                return sum;
-            }else if(sum > target){
-                end--;
-            }else{
-                st++;
-                while(st < end && nums[st] == nums[st-1]){
-                    st++;
-                }
-            }
-
-        }
+void solve(int n , int open , int close , string curr ,vector<string>& ans){
+    if(open == n && close == n){
+        ans.push_back(curr);
+        return;
     }
+    if(open < n){
+        curr.push_back('(');
+        solve(n,open+1,close,curr,ans);
+        curr.pop_back();
+    }
+    if(close < open){
+        curr.push_back(')');
+        solve(n,open,close+1,curr,ans);
+        curr.pop_back();
+    }
+    
+}
+vector<string> generateParenthesis(int n) {
+    int close = 0,open = 0;
+    string curr;
+    vector<string> ans;
+    solve(n,open,close,curr,ans);
     return ans;
 }
