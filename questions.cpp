@@ -1,4 +1,4 @@
-/// generate parentheses:
+/// knights tour:
 
 #include <iostream>
 #include <vector>
@@ -7,27 +7,30 @@
 #include <set>
 using namespace std;
 
-void solve(int n , int open , int close , string curr ,vector<string>& ans){
-    if(open == n && close == n){
-        ans.push_back(curr);
-        return;
+bool isValid(vector<vector<int>>& grid, int row, int col, int n, int expValue)
+{
+    if (row < 0 || col < 0 || row >= n || col >= n || grid[row][col] != expValue)
+    {
+        return false;
     }
-    if(open < n){
-        curr.push_back('(');
-        solve(n,open+1,close,curr,ans);
-        curr.pop_back();
+    if (expValue == n * n - 1)
+    {
+        return true;
     }
-    if(close < open){
-        curr.push_back(')');
-        solve(n,open,close+1,curr,ans);
-        curr.pop_back();
-    }
-    
+
+    bool ans1 = isValid(grid, row - 2, col + 1, n, expValue + 1);
+    bool ans2 = isValid(grid, row - 1, col + 2, n, expValue + 1);
+    bool ans3 = isValid(grid, row + 1, col + 2, n, expValue + 1);
+    bool ans4 = isValid(grid, row + 2, col + 1, n, expValue + 1);
+    bool ans5 = isValid(grid, row + 2, col - 1, n, expValue + 1);
+    bool ans6 = isValid(grid, row + 1, col - 2, n, expValue + 1);
+    bool ans7 = isValid(grid, row - 1, col - 2, n, expValue + 1);
+    bool ans8 = isValid(grid, row - 2, col - 1, n, expValue + 1);
+
+    return ans1 || ans2 || ans3 || ans4 || ans5 || ans6 || ans7 || ans8;
 }
-vector<string> generateParenthesis(int n) {
-    int close = 0,open = 0;
-    string curr;
-    vector<string> ans;
-    solve(n,open,close,curr,ans);
-    return ans;
+
+bool checkValidGrid(vector<vector<int>>& grid)
+{
+    return isValid(grid, 0, 0, grid.size(), 0);
 }
