@@ -1,4 +1,4 @@
-/// knights tour:
+/// letter combination :
 
 #include <iostream>
 #include <vector>
@@ -7,30 +7,23 @@
 #include <set>
 using namespace std;
 
-bool isValid(vector<vector<int>>& grid, int row, int col, int n, int expValue)
-{
-    if (row < 0 || col < 0 || row >= n || col >= n || grid[row][col] != expValue)
-    {
-        return false;
+void solve(string curr , int i , string digits, vector<string>& ans){
+    if(curr.size() == digits.size()){
+        ans.push_back(curr);
+        return;
     }
-    if (expValue == n * n - 1)
-    {
-        return true;
+    vector<string> mapping = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    string letters = mapping[digits[i]-'0'];
+    for(char ch : letters){
+        curr.push_back(ch);
+        solve(curr,i+1,digits,ans);
+        curr.pop_back();
     }
-
-    bool ans1 = isValid(grid, row - 2, col + 1, n, expValue + 1);
-    bool ans2 = isValid(grid, row - 1, col + 2, n, expValue + 1);
-    bool ans3 = isValid(grid, row + 1, col + 2, n, expValue + 1);
-    bool ans4 = isValid(grid, row + 2, col + 1, n, expValue + 1);
-    bool ans5 = isValid(grid, row + 2, col - 1, n, expValue + 1);
-    bool ans6 = isValid(grid, row + 1, col - 2, n, expValue + 1);
-    bool ans7 = isValid(grid, row - 1, col - 2, n, expValue + 1);
-    bool ans8 = isValid(grid, row - 2, col - 1, n, expValue + 1);
-
-    return ans1 || ans2 || ans3 || ans4 || ans5 || ans6 || ans7 || ans8;
 }
-
-bool checkValidGrid(vector<vector<int>>& grid)
-{
-    return isValid(grid, 0, 0, grid.size(), 0);
+vector<string> letterCombinations(string digits) {
+    int i = 0;
+    string curr;
+    vector<string> ans;
+    solve(curr,i,digits,ans);
+    return ans;
 }
