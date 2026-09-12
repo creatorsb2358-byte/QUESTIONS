@@ -1,4 +1,4 @@
-/// letter case permutation :
+/// combinations 3 :
 
 #include <iostream>
 #include <vector>
@@ -7,31 +7,26 @@
 #include <set>
 using namespace std;
 
-void solve(string s , string curr , vector<string>& ans, int i){
-    if(curr.size() == s.size()){
+void solve(int k , int n , int sum , vector<int>& curr , vector<vector<int>>& ans,int i ){
+    if(curr.size() == k && sum == n){
         ans.push_back(curr);
         return;
     }
-    if(isdigit(s[i])){
-        curr.push_back(s[i]);
-        solve(s,curr,ans,i+1);
-        curr.pop_back();
-    }else {
-        curr.push_back(tolower(s[i]));
-        solve(s,curr,ans,i+1);
-        curr.pop_back();
-
-        curr.push_back(toupper(s[i]));
-        solve(s,curr,ans,i+1);
-        curr.pop_back();
+    if(curr.size() == k && sum != n){
+        return;
     }
-    
+    for(int j = i ; j < 10; j++){
+        curr.push_back(j);
+        sum+=j;
+        solve(k,n,sum,curr,ans,j+1);
+        curr.pop_back();
+        sum -= j;
+    }
 }
-
-vector<string> letterCasePermutation(string s) {
-    vector<string> ans;
-    string curr;
-    int i = 0;
-    solve(s,curr,ans,i);
+vector<vector<int>> combinationSum3(int k, int n) {
+    vector<int> curr;
+    vector<vector<int>> ans;
+    int sum = 0 , i=1;
+    solve(k,n,sum,curr,ans,i); 
     return ans;
 }
