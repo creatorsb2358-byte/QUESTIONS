@@ -1,4 +1,4 @@
-/// boats to save people:
+/// bag of tokens:
 
 #include <iostream>
 #include <vector>
@@ -7,17 +7,32 @@
 #include <set>
 using namespace std;
 
-int numRescueBoats(vector<int>& people, int limit) {
-    sort(people.begin(),people.end());
-    int i = 0 , j = people.size()-1,boat = 0;
-    while(i <= j){
-        if(people[i]+people[j] <= limit){
-            boat++;
-            i++,j--;
-        }else{
-            boat++;
+int bagOfTokensScore(vector<int>& tokens, int power) {
+    sort(tokens.begin(), tokens.end());
+
+    int i = 0;
+    int j = tokens.size() - 1;
+    int score = 0;
+    int maxScore = 0;
+
+    while(i <= j) {
+
+        if(tokens[i] <= power) {
+            power -= tokens[i];
+            score++;
+            i++;
+
+            maxScore = max(maxScore, score);
+        }
+        else if(score > 0) {
+            power += tokens[j];
+            score--;
             j--;
         }
+        else {
+            break;
+        }
     }
-    return boat;
+
+    return maxScore;
 }
